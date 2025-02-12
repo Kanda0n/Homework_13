@@ -3,8 +3,8 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    private final Product[] products; // Массив для хранения продуктов
-    private int count;                // Количество продуктов в корзине
+    private final Product[] products;
+    private int count;
 
     public ProductBasket() {
         this.products = new Product[5];
