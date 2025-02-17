@@ -20,7 +20,7 @@ public class App {
         basket.addProduct(product3);
         basket.addProduct(product4);
         basket.addProduct(product5);
-        basket.addProduct(product6); // Корзина заполнена
+        basket.addProduct(product6);
 
         System.out.println("Содержимое корзины:");
         basket.printBasket();
