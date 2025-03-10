@@ -24,7 +24,9 @@ public class ProductBasket {
         int totalCost = 0;
         if (count != 0) {
             for (Product product : products) {
-                totalCost += product.getPrice();
+                if (product != null) {
+                    totalCost += product.getPrice();
+                }
             }
         }
         return totalCost;
@@ -36,9 +38,11 @@ public class ProductBasket {
         } else {
             byte specialProductsCount = 0;
             for (Product product : products) {
-                System.out.println(product);
-                if (product.isSpecial()) {
-                    specialProductsCount++;
+                if (product != null) {
+                    System.out.println(product);
+                    if (product.isSpecial()) {
+                        specialProductsCount++;
+                    }
                 }
             }
             System.out.println("Итого: " + getTotalCost());
@@ -49,7 +53,7 @@ public class ProductBasket {
     public boolean containsProduct(String name) {
         if (count != 0) {
             for (Product product : products) {
-                if (product.getName().equals(name)) {
+                if (product != null && product.getName().equals(name)) {
                     return true;
                 }
             }
