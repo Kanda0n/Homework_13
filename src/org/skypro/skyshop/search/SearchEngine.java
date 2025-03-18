@@ -1,38 +1,32 @@
 package org.skypro.skyshop.search;
 
-public class SearchEngine {
-    private final Searchable[] searchables;
-    private int count;
+import java.util.List;
+import java.util.LinkedList;
 
-    public SearchEngine(int capacity) {
-        this.searchables = new Searchable[capacity];
-        this.count = 0;
+public class SearchEngine {
+    private final List<Searchable> searchables;
+
+    public SearchEngine() {
+        this.searchables = new LinkedList<>();
     }
 
     public void add(Searchable searchable) {
-        if (count < searchables.length) {
-            searchables[count] = searchable;
-            count++;
-        } else {
-            System.out.println("Невозможно добавить объект: достигнут лимит.");
+        if (searchable == null) {
+            throw new IllegalArgumentException("Объект не может быть null");
         }
+        searchables.add(searchable);
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
+    public List<Searchable> search(String query) {
+        List<Searchable> results = new LinkedList<>();
         int resultCount = 0;
 
         for (Searchable searchable : searchables) {
             if (searchable != null && searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results[resultCount] = searchable;
-                resultCount++;
-
-                if (resultCount == 5) {
-                    break;
-                }
+                results.add(searchable);
+                resultCount++; //счётчик оставлен просто на всякий случай, на будущее. Не понадобится, уберём
             }
         }
-
         return results;
     }
 
