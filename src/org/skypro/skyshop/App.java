@@ -11,10 +11,12 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("HomeWork №17");
+        System.out.println("HomeWork №18");
 
         ProductBasket basket = new ProductBasket();
 
@@ -35,7 +37,7 @@ public class App {
             System.out.println("Ошибка! " + e.getMessage());
         }
         try {
-            Product product3 = new DiscountedProduct("Кола Добрый", 100, 20);
+            Product product3 = new DiscountedProduct("Кола", 100, 20);
             basket.addProduct(product3);
             searchEngine.add(product3);
         } catch (IllegalArgumentException e) {
@@ -70,7 +72,7 @@ public class App {
             System.out.println("Ошибка! " + e.getMessage());
         }
         try {
-            Product product8 = new SimpleProduct("Кола Черноголовка", 120);
+            Product product8 = new DiscountedProduct("Кола", 100, 20);
             basket.addProduct(product8);
             searchEngine.add(product8);
         } catch (IllegalArgumentException e) {
@@ -133,8 +135,8 @@ public class App {
         System.out.println("\n" + "Демонстрация работы новой части поиска:");
 
         System.out.println("\nРезультаты поиска по запросу 'гречк':");
-        List<Searchable> searchResults = searchEngine.search("гречк");
-        searchResults.forEach(result -> System.out.println(result.getStringRepresentation()));
+        Map<String, Searchable> searchResults = searchEngine.search("гречк");
+        searchResults.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
         try {
             Searchable bestMatch = searchEngine.findBestMatch("гречк");
             System.out.println("Найден наиболее подходящий объект: " + bestMatch.getStringRepresentation());
@@ -143,7 +145,7 @@ public class App {
         }
         System.out.println("\nРезультаты поиска по запросу 'запрос':");
         searchResults = searchEngine.search("запрос");
-        searchResults.forEach(result -> System.out.println(result.getStringRepresentation()));
+        searchResults.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
         try {
             Searchable bestMatch = searchEngine.findBestMatch("запрос");
             System.out.println("Найден наиболее подходящий объект: " + bestMatch.getStringRepresentation());
