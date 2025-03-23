@@ -2,6 +2,8 @@ package org.skypro.skyshop.search;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private final List<Searchable> searchables;
@@ -17,13 +19,13 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public List<Searchable> search(String query) {
-        List<Searchable> results = new LinkedList<>();
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new TreeMap<>();
         int resultCount = 0;
 
         for (Searchable searchable : searchables) {
             if (searchable != null && searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results.add(searchable);
+                results.put(searchable.getName(), searchable);
                 resultCount++; //счётчик оставлен просто на всякий случай, на будущее. Не понадобится, уберём
             }
         }
