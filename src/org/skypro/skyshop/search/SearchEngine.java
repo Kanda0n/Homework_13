@@ -1,15 +1,12 @@
 package org.skypro.skyshop.search;
 
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
-    private final List<Searchable> searchables;
+    private final Set<Searchable> searchables;
 
     public SearchEngine() {
-        this.searchables = new LinkedList<>();
+        this.searchables = new HashSet<>();
     }
 
     public void add(Searchable searchable) {
@@ -19,13 +16,12 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public Map<String, Searchable> search(String query) {
-        Map<String, Searchable> results = new TreeMap<>();
+    public Set<Searchable> search(String query) {
+        Set<Searchable> results = new TreeSet<>(new SearchableComparator());
         int resultCount = 0;
-
         for (Searchable searchable : searchables) {
             if (searchable != null && searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results.put(searchable.getName(), searchable);
+                results.add(searchable);
                 resultCount++; //счётчик оставлен просто на всякий случай, на будущее. Не понадобится, уберём
             }
         }
