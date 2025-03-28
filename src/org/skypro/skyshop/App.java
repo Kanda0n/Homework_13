@@ -11,12 +11,11 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("HomeWork №18");
+        System.out.println("HomeWork №19");
 
         ProductBasket basket = new ProductBasket();
 
@@ -135,8 +134,8 @@ public class App {
         System.out.println("\n" + "Демонстрация работы новой части поиска:");
 
         System.out.println("\nРезультаты поиска по запросу 'гречк':");
-        Map<String, Searchable> searchResults = searchEngine.search("гречк");
-        searchResults.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
+        Set<Searchable> searchResults = searchEngine.search("гречк");
+        searchResults.forEach(result -> System.out.println(result.getStringRepresentation()));
         try {
             Searchable bestMatch = searchEngine.findBestMatch("гречк");
             System.out.println("Найден наиболее подходящий объект: " + bestMatch.getStringRepresentation());
@@ -145,7 +144,7 @@ public class App {
         }
         System.out.println("\nРезультаты поиска по запросу 'запрос':");
         searchResults = searchEngine.search("запрос");
-        searchResults.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
+        searchResults.forEach(result -> System.out.println(result.getStringRepresentation()));
         try {
             Searchable bestMatch = searchEngine.findBestMatch("запрос");
             System.out.println("Найден наиболее подходящий объект: " + bestMatch.getStringRepresentation());
