@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("HomeWork №19");
+        System.out.println("HomeWork №20");
 
         ProductBasket basket = new ProductBasket();
 

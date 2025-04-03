@@ -28,46 +28,40 @@ public class ProductBasket {
     }
 
     public int getTotalCost() {
-        int totalCost = 0;
-        for (List<Product> products : productsMap.values()) {
-            for (Product product : products) {
-                totalCost += product.getPrice();
-            }
+        if (productsMap.isEmpty()) {
+            return 0;
         }
-        return totalCost;
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void printBasket() {
-        byte specialProductsCount = 0;
         if (productsMap.isEmpty()) {
             System.out.println("В корзине пусто.");
-        } else {
-            for (List<Product> products : productsMap.values()) {
-                for (Product product : products) {
-                    System.out.println(product.toString());
-                    if (product.isSpecial()) {
-                        specialProductsCount++;
-                    }
-                }
-            }
-            System.out.println("Итого: " + getTotalCost());
-            System.out.println("Специальных товаров: " + specialProductsCount);
+            return;
         }
+        productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(product -> System.out.println(product.getStringRepresentation()));
+
+        System.out.println("Итого: " + getTotalCost());
+        System.out.println("Специальных товаров: " + getSpecialCount());
     }
 
     public boolean containsProduct(String name) {
-        if (productsMap.isEmpty()) {
-            return false;
-        } else {
-            for (List<Product> products : productsMap.values()) {
-                for (Product product : products) {
-                    if (product != null && product.getName().equals(name)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return !productsMap.isEmpty() &&
+                productsMap.values().stream()
+                        .flatMap(Collection::stream)
+                        .anyMatch(p -> p != null && p.getName().equals(name));
+    }
+
+    private long getSpecialCount() {
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void clearBasket() {
